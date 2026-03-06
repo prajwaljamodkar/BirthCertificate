@@ -43,15 +43,11 @@ CREATE TABLE IF NOT EXISTS applications (
     auth2_action_at TIMESTAMP NULL
 );
 
--- Seed default authority accounts (passwords hashed with PHP password_hash / PASSWORD_BCRYPT)
--- Authority 1 password: auth1pass
--- Authority 2 password: auth2pass
--- These hashes were generated with password_hash('auth1pass', PASSWORD_BCRYPT) etc.
--- To regenerate: php -r "echo password_hash('auth1pass', PASSWORD_BCRYPT);"
-
+-- Seed default authority accounts.
 -- Passwords hashed with password_hash(..., PASSWORD_BCRYPT):
 --   authority1 -> auth1pass
 --   authority2 -> auth2pass
+-- To regenerate: php -r "echo password_hash('auth1pass', PASSWORD_BCRYPT);"
 INSERT INTO users (username, password, full_name, role) VALUES
     ('authority1', '$2y$10$wF6GpniWG.WtHlhxIPt0teX5udreAgcBK6vmmOtC/nIw9MGmJPCWC', 'Authority One', 'authority1'),
     ('authority2', '$2y$10$B6hHKOxYD9ZNfIEh5H8Xt.f1VbKIk4f.LgzTk9spF8H3TjsahgfMa', 'Authority Two', 'authority2')
