@@ -9,7 +9,7 @@ define('DB_HOST',   'localhost');
 define('DB_PORT',   '5432');
 define('DB_NAME',   'birthcertificate');
 define('DB_USER',   'postgres');
-define('DB_PASS',   'yourpassword');   // <-- change this
+define('DB_PASS',   'postgrs123');   // <-- change this
 
 function getDB(): PDO {
     static $pdo = null;
