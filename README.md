@@ -41,6 +41,63 @@ Birth Certificate PDF
 
 ---
 
+## Docker Deployment
+
+Run the entire stack (PHP-FPM, Nginx, PostgreSQL) with a single command using Docker Compose.
+
+### 1. Copy and configure the environment file
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set a secure `POSTGRES_PASSWORD` (and matching `DB_PASS`) — replace the `CHANGE_ME` placeholders.
+
+### 2. Build and start all services
+
+```bash
+docker compose up -d --build
+```
+
+This starts:
+| Service | Description | Port |
+|---------|-------------|------|
+| `php`   | PHP 8.1-FPM app | — |
+| `nginx` | Nginx reverse proxy | **8080 → 80** |
+| `db`    | PostgreSQL 15 | — |
+
+### 3. Import the database schema
+
+```bash
+# Copy the SQL file into the container, then import it
+docker compose exec db psql -U postgres -d birthcertificate -f /dev/stdin < database.sql
+```
+
+Alternatively using `docker cp`:
+
+```bash
+docker cp database.sql $(docker compose ps -q db):/database.sql
+docker compose exec db psql -U postgres -d birthcertificate -f /database.sql
+```
+
+### 4. Open the application
+
+Navigate to **http://localhost:8080/** in your browser.
+
+### 5. Stop the stack
+
+```bash
+docker compose down          # stop containers (data persists in pgdata volume)
+docker compose down -v       # stop containers AND remove the database volume
+```
+
+> **Font directory note**: The `font/` directory is included in the repository and
+> contains the FPDF core font definitions. If you ever see PDF generation errors about
+> missing fonts, verify that the `font/` directory is present and readable inside the
+> container (`docker compose exec php ls /var/www/html/font`).
+
+---
+
 ## Prerequisites
 
 | Requirement | Version |
