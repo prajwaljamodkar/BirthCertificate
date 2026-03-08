@@ -2,14 +2,15 @@
 /**
  * Database Configuration
  * Connects to PostgreSQL using PDO.
- * Adjust the constants below to match your environment.
+ * Values are read from environment variables when present (Docker / production),
+ * and fall back to the constants below for plain PHP / development setups.
  */
 
 define('DB_HOST',   'localhost');
 define('DB_PORT',   '5432');
 define('DB_NAME',   'birthcertificate');
 define('DB_USER',   'postgres');
-define('DB_PASS',   'postgrs123');   // <-- change this
+define('DB_PASS',   'yourpassword');   // <-- change this
 
 function getDB(): PDO {
     static $pdo = null;
