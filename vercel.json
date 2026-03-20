@@ -1,6 +1,16 @@
-{
-  "buildCommand": "echo 'Build complete'",
+{ "version": 2,
+  "builds": [
+    { "src": "*.php", "use": "@vercel/php" }
+  ],
   "routes": [
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
+    { "src": "/(.*)", "dest": "/index.php" }
+  ],
+  "buildCommand": "echo 'PHP build complete'",
+  "outputDirectory": "./public",
+  "env": {
+    "DB_HOST": "@supabase_url",
+    "DB_ANON_KEY": "@supabase_anon_key",
+    "DB_SERVICE_ROLE_KEY": "@supabase_service_role_key",
+    "DB_PASS": "@supabase_db_password"
+  }
 }
