@@ -1,0 +1,6 @@
+{
+  "buildCommand": "echo 'Build complete'",
+  "routes": [
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
